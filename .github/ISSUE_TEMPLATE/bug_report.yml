@@ -1,0 +1,41 @@
+name: Bug report
+description: The tool crashed, gave a wrong verdict or a wrong diagnosis
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran, what you expected and what you got.
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      description: The exact command line. Remove API keys and private hostnames.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Report
+      description: Output of the command, or better the file written by `--json report.json`.
+      render: text
+  - type: input
+    id: server
+    attributes:
+      label: Server and version
+      placeholder: "e.g. vLLM 0.x.y, TEI 1.x (cpu image), llama-server build ..."
+  - type: input
+    id: model
+    attributes:
+      label: Model and revision
+      placeholder: "e.g. BAAI/bge-small-en-v1.5 @ 5c38ec7"
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: "`embed-parity --version`, Python, and for reference problems the library versions shown by `embed-parity inspect ref.json`."
+      render: text

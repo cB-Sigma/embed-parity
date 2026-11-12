@@ -1,0 +1,47 @@
+# Example: check a staging embeddings endpoint on every deploy and every night.
+#
+# The reference file is committed to the repository (ci/minilm.ref.json here), so this job
+# needs neither torch nor a model download: it installs numpy and talks to your endpoint.
+#
+# Make the reference once, on any machine with a CPU:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   pip install "embed-parity[reference] @ git+https://github.com/cb-Sigma/embed-parity"
+#   embed-parity reference --model sentence-transformers/all-MiniLM-L6-v2 \
+#       --revision <commit-sha> --out ci/minilm.ref.json
+
+name: Embedding parity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install git+https://github.com/cb-Sigma/embed-parity
+      - name: Check the endpoint
+        env:
+          EMBED_PARITY_API_KEY: ${{ secrets.EMBEDDINGS_API_KEY }}
+        run: |
+          embed-parity check \
+            --base-url "${{ vars.EMBEDDINGS_URL }}" \
+            --model "${{ vars.EMBEDDINGS_MODEL }}" \
+            --reference ci/minilm.ref.json \
+            --json report.json \
+            --markdown "$GITHUB_STEP_SUMMARY"
+      - name: Keep the full report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: embed-parity-report
+          path: report.json

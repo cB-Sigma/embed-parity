@@ -1,0 +1,44 @@
+name: Release
+
+# Builds the distribution on every version tag and attaches it to a GitHub
+# release. Publishing to PyPI uses trusted publishing (OIDC, no stored token)
+# and only runs when the repository variable PYPI_PUBLISH is set to "true".
+#
+# Before enabling it: the distribution name must be one this project controls
+# on PyPI, and a trusted publisher for this repository and the "pypi"
+# environment must be configured there. See CONTRIBUTING.md, "Releasing".
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+    permissions:
+      contents: write # create the GitHub release
+      id-token: write # PyPI trusted publishing
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python -m pip install build twine
+      - name: Tag matches package version
+        run: |
+          version=$(grep -oP '__version__ = "\K[^"]+' src/embed_parity/__init__.py)
+          test "v$version" = "$GITHUB_REF_NAME"
+      - run: python -m build
+      - run: twine check --strict dist/*
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --generate-notes
+      - name: Publish to PyPI
+        if: vars.PYPI_PUBLISH == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1

@@ -1,0 +1,41 @@
+name: Server compatibility report
+description: You ran embed-parity against a real server, whether it worked or not
+labels: [server-report]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Most servers in the README's support table are marked "docs only". A report from a real
+        deployment, passing or failing, moves a row to "tested".
+  - type: input
+    id: server
+    attributes:
+      label: Server, version and hardware
+      placeholder: "e.g. TEI 1.9 cuda image on an A10"
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model and revision
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Commands
+      description: How the server was started and how `embed-parity check` was invoked.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything the tool got wrong or could not express

@@ -1,0 +1,19 @@
+name: Feature request
+description: A check, variant, API shape or model type that is missing
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to verify
+      description: The failure you want to catch, ideally with a link to an upstream issue that shows it.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Workarounds you use today

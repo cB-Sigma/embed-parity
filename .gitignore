@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+wheels/
+*.whl
+
+# Virtual environments
+.venv/
+venv/
+env/
+.venvs/
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+
+# Models and downloaded weights
+*.gguf
+*.safetensors
+*.bin
+*.onnx
+*.pt
+*.pth
+models/
+.cache/
+hf-cache/
+
+# Generated references and reports (commit references deliberately, with -f or elsewhere)
+*.ref.json
+report.json
+report.md
+
+# Editors and OS
+.idea/
+.vscode/
+*.swp
+.DS_Store

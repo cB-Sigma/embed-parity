@@ -1,0 +1,8 @@
+{"id": "q-refund", "text": "how long do refunds take", "tags": ["query"]}
+{"id": "q-password", "text": "reset my password without the old email address", "tags": ["query"]}
+{"id": "d-refund", "text": "Refunds are issued to the original payment method within five to seven working days after the returned item has been received.", "tags": ["document"]}
+{"id": "d-shipping", "text": "Standard shipping takes three to five working days; express orders placed before noon leave the warehouse the same day.", "tags": ["document"]}
+{"id": "d-password", "text": "If you no longer have access to the email address on your account, contact support with a photo ID to reset your password.", "tags": ["document"]}
+{"id": "d-2fa", "text": "Two-factor authentication can be enabled under Settings, Security, using an authenticator app or a hardware key.", "tags": ["document"]}
+{"id": "sku", "text": "SKU 4471-B / lot 2024-11 / qty 12", "tags": ["numbers"]}
+{"id": "multilingual", "text": "Wo finde ich meine Rechnung? ¿Dónde está mi factura?", "tags": ["unicode"]}
